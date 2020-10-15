@@ -39,6 +39,10 @@ public class Celda {
     public void setPared (int vecino, boolean pared) {
         this.vecinos[vecino] = pared;
     }  
+    
+    public void setValue (int value) {
+        this.value = value;
+    }
 
     public int getId() {
         return id;

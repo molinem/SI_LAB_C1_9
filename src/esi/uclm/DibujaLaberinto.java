@@ -21,6 +21,9 @@ public class DibujaLaberinto extends JComponent {
         this.laberinto = lab;
     }
     
+    public Laberinto getLaberinto () {
+        return this.laberinto;
+    }
     
     @Override
     public void paint(Graphics g){
@@ -42,7 +45,7 @@ public class DibujaLaberinto extends JComponent {
                 }else{
                     g.setColor(Color.BLACK);
                 }
-                g.fillRect(x, y, lado, 2);
+                g.fillRect(x, y, lado, 1);
                 
                 /*** Se dibuja la pared este ***/
                 if (this.laberinto.getCells()[i][j].getVecinos()[3]) {
@@ -50,10 +53,10 @@ public class DibujaLaberinto extends JComponent {
                 }else{
                     g.setColor(Color.BLACK);
                 }
-                g.fillRect(x, y, 2, lado);
+                g.fillRect(x, y, 1, lado);
                 
                 /*** Dibujamos el cuadrado ***/
-                g.setColor(Color.WHITE); g.fillRect(x + 2, y + 2, lado, lado);
+                g.setColor(Color.WHITE); g.fillRect(x + 1, y + 1, lado, lado);
                 x = x + lado;               
             }
             
