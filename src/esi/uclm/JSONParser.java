@@ -24,7 +24,7 @@ public class JSONParser {
         
     }
     
-    public void parseToJSON (Laberinto laberinto) {
+    public void parseToJSON (Laberinto laberinto,String ruta) {
         this.laberinto = laberinto;
         
         JSONObject principal = new JSONObject();
@@ -58,7 +58,7 @@ public class JSONParser {
         
         principal.put("cells", celdas);
         
-        try (FileWriter writer = new FileWriter("./laberinto" + laberinto.getFilas() + "x" + laberinto.getColumnas() + ".json")) {
+        try (FileWriter writer = new FileWriter(ruta + laberinto.getFilas() + "x" + laberinto.getColumnas() + ".json")) {
             writer.write(principal.toString(3));
             writer.flush();
         } catch (IOException ex) {

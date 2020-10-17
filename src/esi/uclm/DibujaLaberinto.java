@@ -12,6 +12,8 @@ import javax.swing.JComponent;
 public class DibujaLaberinto extends JComponent {
     
     private Laberinto laberinto;
+    private int x_final;
+    private int y_final;
     
     public DibujaLaberinto(){
         /*** Constructor por defecto ***/
@@ -27,8 +29,11 @@ public class DibujaLaberinto extends JComponent {
     
     @Override
     public void paint(Graphics g){
-        int x = 0, y = 0;
+        int x = 10, y = 10;
         int lado;
+        
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, 1100, 1100);
         
         if (this.laberinto.getFilas() > this.laberinto.getColumnas()) {
             lado = (960 / this.laberinto.getFilas()) - 1;
@@ -36,39 +41,44 @@ public class DibujaLaberinto extends JComponent {
             lado = (960 / this.laberinto.getColumnas()) - 1;
         }
         
-        
+        g.setColor(Color.BLACK);
         for (int i = 0; i < this.laberinto.getCells().length; i++) {
             for (int j = 0; j < this.laberinto.getCells()[i].length; j++) {
                 /*** Se dibuja la pared norte ***/
-                if (this.laberinto.getCells()[i][j].getVecinos()[0]) {
-                    g.setColor(Color.WHITE);
-                }else{
-                    g.setColor(Color.BLACK);
+                if (!this.laberinto.getCells()[i][j].getVecinos()[0]) {
+                   g.fillRect(x, y, lado, 3); 
                 }
-                g.fillRect(x, y, lado, 1);
                 
                 /*** Se dibuja la pared este ***/
-                if (this.laberinto.getCells()[i][j].getVecinos()[3]) {
-                    g.setColor(Color.WHITE);
-                }else{
-                    g.setColor(Color.BLACK);
+                if (!this.laberinto.getCells()[i][j].getVecinos()[3]) {
+                    g.fillRect(x, y, 3, lado);
                 }
-                g.fillRect(x, y, 1, lado);
                 
-                /*** Dibujamos el cuadrado ***/
-                g.setColor(Color.WHITE); g.fillRect(x + 1, y + 1, lado, lado);
                 x = x + lado;               
             }
             
-            x = 0;
+            x = 10;
             y = y + lado;
         }
         
+        
+        this.x_final = lado * this.laberinto.getColumnas() + 10;
+        this.y_final = y;
+        
         /*** Dibujar bordes final ***/
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, 2, lado * this.laberinto.getFilas());
-        g.fillRect(0, 0, lado * this.laberinto.getColumnas(), 2);
-        g.fillRect(lado * this.laberinto.getColumnas(), 0, 2, lado * this.laberinto.getFilas());
-        g.fillRect(0, lado * this.laberinto.getFilas(), lado * this.laberinto.getColumnas() + 2, 2);
+        g.fillRect(10, 10, 5, lado * this.laberinto.getFilas());
+        g.fillRect(10, 10, lado * this.laberinto.getColumnas(), 5);
+        g.fillRect(lado * this.laberinto.getColumnas() + 10, 10, 5, lado * this.laberinto.getFilas());
+        g.fillRect(10, lado * this.laberinto.getFilas() + 10, lado * this.laberinto.getColumnas() + 2, 5);
     }
+
+    public int getX_final() {
+        return x_final;
+    }
+
+    public int getY_final() {
+        return y_final;
+    }
+    
+    
 }

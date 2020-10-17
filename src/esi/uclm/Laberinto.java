@@ -225,6 +225,64 @@ public class Laberinto{
         }   
     }
     
+    public String comprobarLaberinto () {
+        
+        String mensaje="";
+       
+        for (int i=0; i<this.cells.length; i++){
+            for (int j=0; j < this.cells[i].length; j++) {
+                if (i-1 >= 0) {
+                    if (cells[i][j].getVecinos()[0] != cells[i-1][j].getVecinos()[2]) {
+                        cells[i][j].getVecinos()[0] = cells[i-1][j].getVecinos()[2];
+                        mensaje = mensaje + "ERROR AL COMPARAR CON LA CASILLA NORTE - " + i + " " + j +"\n";
+                    }
+                } else {
+                    if (cells[i][j].getVecinos()[0] != false) {
+                        cells[i][j].getVecinos()[0] = false;
+                        mensaje = mensaje + "ERROR AL COMPARAR CON LA CASILLA NORTE - " + i + " " + j +"\n";
+                    }
+                }
+               
+                if (j+1 < cells[i].length) {
+                    if (cells[i][j].getVecinos()[1] != cells[i][j+1].getVecinos()[3]) {
+                        cells[i][j].getVecinos()[1] = cells[i][j+1].getVecinos()[3];
+                        mensaje = mensaje + "ERROR AL COMPARAR CON LA CASILLA ESTE - " + i + " " + j +"\n";
+                    }
+                } else {
+                    if (cells[i][j].getVecinos()[1] != false) {
+                        cells[i][j].getVecinos()[1] = false;
+                        mensaje = mensaje + "ERROR AL COMPARAR CON LA CASILLA ESTE - " + i + " " + j +"\n";
+                    }
+                }
+               
+                if (i+1 < cells.length) {
+                    if (cells[i][j].getVecinos()[2] != cells[i+1][j].getVecinos()[0]) {
+                        cells[i][j].getVecinos()[2] = cells[i+1][j].getVecinos()[0];
+                        mensaje = mensaje + "ERROR AL COMPARAR CON LA CASILLA SUR - " + i + " " + j +"\n";
+                    }
+                } else {
+                    if (cells[i][j].getVecinos()[2] != false) {
+                        cells[i][j].getVecinos()[2] = false;
+                        mensaje = mensaje + "ERROR AL COMPARAR CON LA CASILLA SUR - " + i + " " + j +"\n";
+                    }
+                }
+               
+                if (j-1 >= 0) {
+                    if (cells[i][j].getVecinos()[3] != cells[i][j-1].getVecinos()[1]) {
+                        cells[i][j].getVecinos()[3] = cells[i][j-1].getVecinos()[1];
+                        mensaje = mensaje + "ERROR AL COMPARAR CON LA CASILLA OESTE - " + i + " " + j +"\n";
+                    }
+                } else {
+                    if (cells[i][j].getVecinos()[3] != false) {
+                        cells[i][j].getVecinos()[3] = false;
+                        mensaje = mensaje + "ERROR AL COMPARAR CON LA CASILLA OESTE - " + i + " " + j +"\n";
+                    }
+                }
+            }
+        }
+       return mensaje;
+    }
+    
     public int getFilas() {
         return filas;
     }
