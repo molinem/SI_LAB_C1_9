@@ -27,7 +27,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" pref="640" max="-2" attributes="0"/>
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -60,7 +60,7 @@
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="27" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="txtFilas" pref="50" max="32767" attributes="0"/>
                       <Component id="txtColumnas" max="32767" attributes="0"/>
@@ -119,9 +119,6 @@
         <Component class="javax.swing.JTextField" name="txtFilas">
         </Component>
         <Component class="javax.swing.JTextField" name="txtColumnas">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtColumnasActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnGenerar">
           <Properties>

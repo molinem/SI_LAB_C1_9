@@ -5,11 +5,10 @@
  */
 package esi.uclm.main;
 
-import esi.uclm.DibujaLaberinto;
-import esi.uclm.JSONParser;
-import esi.uclm.Laberinto;
+import esi.uclm.mazegen.DibujaLaberinto;
+import esi.uclm.mazegen.JSONParser;
+import esi.uclm.mazegen.Laberinto;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -77,12 +76,6 @@ public class LaberintoGUI extends javax.swing.JFrame {
 
         jLabel2.setText("Valor columnas: ");
 
-        txtColumnas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtColumnasActionPerformed(evt);
-            }
-        });
-
         btnGenerar.setText("Generar laberinto");
         btnGenerar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,7 +113,7 @@ public class LaberintoGUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtFilas, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                     .addComponent(txtColumnas))
@@ -160,7 +153,7 @@ public class LaberintoGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -175,10 +168,6 @@ public class LaberintoGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtColumnasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtColumnasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtColumnasActionPerformed
     
     /**
      * Botón generar

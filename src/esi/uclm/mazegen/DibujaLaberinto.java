@@ -1,5 +1,5 @@
 
-package esi.uclm;
+package esi.uclm.mazegen;
 
 import java.awt.Color;
 import java.awt.Graphics;
