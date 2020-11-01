@@ -185,41 +185,49 @@ public class LaberintoGUI extends javax.swing.JFrame {
      * @param evt 
      */
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
-        //Obtenemos los datos
-        txtFilasLeidas = Integer.parseInt(txtFilas.getText());
-        txtColumnasLeidas = Integer.parseInt(txtColumnas.getText());
-        
-        //Se crea el laberinto y se realiza el algoritmo de Wilson
-        lab_1 = new Laberinto (txtFilasLeidas, txtColumnasLeidas);
-        lab_1.generarLaberinto();
-        
-        //Generar imagen
-        JFrame frame = new JFrame("Laberinto generado ["+txtFilasLeidas+" x "+ txtColumnasLeidas+"]");
-        frame.setLocationRelativeTo(null);
-        
-        dibujo = new DibujaLaberinto();
-        dibujo.setLaberinto(lab_1);
-        dibujo.setSize(dibujo.getX_final(),dibujo.getY_final());
+        try{
+            //Obtenemos los datos
+            txtFilasLeidas = Integer.parseInt(txtFilas.getText());
+            txtColumnasLeidas = Integer.parseInt(txtColumnas.getText());
 
-        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(dibujo);
-        frame.pack();
+            //Se crea el laberinto y se realiza el algoritmo de Wilson
+            lab_1 = new Laberinto (txtFilasLeidas, txtColumnasLeidas);
+            lab_1.generarLaberinto();
+
+            //Generar imagen
+            JFrame frame = new JFrame("Laberinto generado ["+txtFilasLeidas+" x "+ txtColumnasLeidas+"]");
+            frame.setLocationRelativeTo(null);
+
+            dibujo = new DibujaLaberinto();
+            dibujo.setLaberinto(lab_1);
+            dibujo.setSize(dibujo.getX_final(),dibujo.getY_final());
+
+            //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.getContentPane().add(dibujo);
+            frame.pack();
+
+            //Maximizamos la ventana y la hacemos visible
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            frame.setVisible(true);
+
+            //Generación previa de la imagen(para posteriormente imprimirla si se desea)
+            //JComponent
+            imagen = new BufferedImage(960,960,BufferedImage.TYPE_INT_RGB);
+
+            //Background blanco
+            Graphics2D drawer = imagen.createGraphics() ;
+            drawer.setBackground(Color.WHITE);
+            drawer.clearRect(0,0,960,960);
+
+            //Super importante
+            dibujo.printAll(imagen.getGraphics());
+            
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null,"Tienes que introducir los datos correctos","Advertencia",JOptionPane.WARNING_MESSAGE);
+            txtFilas.setText("");
+            txtColumnas.setText("");
+        }
         
-        //Maximizamos la ventana y la hacemos visible
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setVisible(true);
-        
-        //Generación previa de la imagen(para posteriormente imprimirla si se desea)
-        //JComponent
-        imagen = new BufferedImage(960,960,BufferedImage.TYPE_INT_RGB);
-        
-        //Background blanco
-        Graphics2D drawer = imagen.createGraphics() ;
-        drawer.setBackground(Color.WHITE);
-        drawer.clearRect(0,0,960,960);
-        
-        //Super importante
-        dibujo.printAll(imagen.getGraphics());
     }//GEN-LAST:event_btnGenerarActionPerformed
 
     private void btnExportarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarImagenActionPerformed
