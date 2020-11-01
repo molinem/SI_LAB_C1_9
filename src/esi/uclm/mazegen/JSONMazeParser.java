@@ -16,11 +16,11 @@ import org.json.JSONObject;
  *
  * @author pikac
  */
-public class JSONParser {
+public class JSONMazeParser {
     
     private Laberinto laberinto;
     
-    public JSONParser () {
+    public JSONMazeParser () {
         
     }
     
