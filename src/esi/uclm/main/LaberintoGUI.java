@@ -5,9 +5,9 @@
  */
 package esi.uclm.main;
 
-import esi.uclm.mazegen.DibujaLaberinto;
-import esi.uclm.mazegen.JSONMazeParser;
-import esi.uclm.mazegen.Laberinto;
+import esi.uclm.util.DibujaLaberinto;
+import esi.uclm.util.JSONParser;
+import esi.uclm.maze.Laberinto;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -254,7 +254,7 @@ public class LaberintoGUI extends javax.swing.JFrame {
                 //Obtenemos la ruta y lo guardamos
                 String ruta = fileChooser.getSelectedFile().toString();
                 //Exportar el laberinto a JSON
-                JSONMazeParser parser = new JSONMazeParser();
+                JSONParser parser = new JSONParser();
                 parser.parseToJSON(lab_1,ruta);
             }
         }else{
@@ -276,7 +276,7 @@ public class LaberintoGUI extends javax.swing.JFrame {
             String ruta = fileChooser.getSelectedFile().toString();
             
             //LEER DE FICHERO JSON Y GENERAR IMAGEN
-            JSONMazeParser parser = new JSONMazeParser();
+            JSONParser parser = new JSONParser();
             lab_1 = parser.parseToLaberinto(ruta);
             String mensaje = lab_1.comprobarLaberinto();
             if(!mensaje.equals("")){

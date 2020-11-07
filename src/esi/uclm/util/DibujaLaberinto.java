@@ -1,6 +1,7 @@
 
-package esi.uclm.mazegen;
+package esi.uclm.util;
 
+import esi.uclm.maze.Laberinto;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JComponent;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package esi.uclm.mazegen;
+package esi.uclm.maze;
 
 /**
  *
@@ -11,22 +11,19 @@ package esi.uclm.mazegen;
  */
 public class Celda {
     
-    private static int contadorId = 0;
-    
-    private int id;
-    
+    /*** IDENTIFICADOR FORMADO POR FILA Y COLUMNA ***/
     private int fila;
     private int columna;
     
+    /*** VALUE DE LA CELDA ***/
     private int value;
+    
+    /*** VECINOS DE LA CELDA ***/
     private boolean[] vecinos;
     
     public Celda (int fila, int columna, int num_vecinos) {
         this.fila = fila;
         this.columna = columna;
-        
-        this.id = contadorId;
-        contadorId++;
         
         this.value = 0;
         this.vecinos = new boolean[num_vecinos];
@@ -42,10 +39,6 @@ public class Celda {
     
     public void setValue (int value) {
         this.value = value;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public int getFila() {
@@ -76,7 +69,14 @@ public class Celda {
         }
         
         Celda other = (Celda) obj;
-        return this.id == other.id;
+        return ((this.fila == other.fila) && (this.columna == other.columna));
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 71 * hash + this.fila;
+        hash = 71 * hash + this.columna;
+        return hash;
+    }   
 }

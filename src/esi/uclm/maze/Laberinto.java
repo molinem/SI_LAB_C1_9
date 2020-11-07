@@ -3,18 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package esi.uclm.mazegen;
+package esi.uclm.maze;
 
+import esi.uclm.util.ElementoDecorado;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /**
  *
  * @author pikac
  */
-public class Laberinto{
+public class Laberinto {
     
-    /*** Atributos de la clase ***/
+    /*** ATRIBUTOS DE LA CLASE LABERINTO - ESTADO ***/
     private int filas;
     private int columnas;
     
@@ -25,12 +27,20 @@ public class Laberinto{
     
     private Celda[][] cells;
     
-    /*** Atributos auxiliares para generar el laberinto ***/
+    private int fila_actual;
+    private int columna_actual;
+    
+    private int fila_objetivo;
+    private int columna_objetivo;
+    
+    
+    /*** ATRIBUTOS AUXILIARES PARA GENERAR EL LABERINTO ***/
     private ElementoDecorado<Celda>[][] celdasElem;
     private ArrayList<ElementoDecorado<Celda>> celdasRestantes;
     private Stack<ElementoDecorado<Celda>> celdasPrevias;
     private ElementoDecorado<Celda> c0;
     
+    // CONSTRUCTORES
     public Laberinto (int filas, int columnas) {
         this.filas = filas;
         this.columnas = columnas;
@@ -54,6 +64,7 @@ public class Laberinto{
         }
     }
     
+    /*** MÉTODOS PARA GENERAR EL LABERINTO USANDO EL ALGORITMO DE WILSON ***/
     public void generarLaberinto () {
         ElementoDecorado<Celda> aux;
         
@@ -283,6 +294,78 @@ public class Laberinto{
        return mensaje;
     }
     
+    //MÉTODOS NECESARIOS PARA REALIZAR EL PROBLEMA DE BUSQUEDA
+    
+    public List<Accion> getAcciones () {
+        List<Accion> acciones = new ArrayList<>();
+        
+        for (int i = 0; i< this.id_mov.length; i++) {
+            acciones.add(new Accion(this.id_mov[i], 1, this.movimientos[i][0], this.movimientos[i][1]));
+        }
+        
+        return acciones;
+    }
+    
+    public Laberinto getEstado (Accion accion) {
+        Laberinto laberinto = (Laberinto) this.clone();
+        
+        switch (accion.getMov()) {
+            case 'N':
+                
+                break;
+            case 'E':
+                
+                break;
+            case 'S':
+                
+                break;
+            case 'O':
+                
+                break;
+        }
+            
+        return laberinto;
+    }
+    
+    /**
+     * Método para clonar el laberinto
+     * @return Object con el laberinto clonado
+     */
+    @Override
+    public Object clone() {
+        Laberinto obj = null;
+        
+        try {
+            obj = (Laberinto) super.clone();
+            
+            //Copiamos el array de celdas
+            obj.cells = obj.cells.clone();
+            for (int i = 0; i < obj.cells.length; i++) {
+                obj.cells[i] = obj.cells[i].clone();
+            }
+
+            //Copiamos los identificadores de los movimientos posibles
+            obj.id_mov = obj.id_mov.clone();
+
+            
+            //Copiamos los posibles movimientos
+            obj.movimientos = obj.movimientos.clone();
+            for (int i = 0; i < obj.movimientos.length; i++) {
+                obj.movimientos[i] = obj.movimientos[i].clone();
+            }
+            
+        } catch (CloneNotSupportedException ex) {
+            System.out.println("El laberinto no se ha podido duplicar");
+        }
+ 
+        return obj;
+    }
+    
+    public boolean esObjetivo () {
+        return ((fila_actual == fila_objetivo) && (columna_actual == columna_objetivo));
+    }
+     
+    //GETTER Y SETTER DE LA CLASE LABERINTO
     public int getFilas() {
         return filas;
     }
@@ -306,4 +389,22 @@ public class Laberinto{
     public Celda[][] getCells() {
         return cells;
     }
+
+    public int getFila_actual() {
+        return fila_actual;
+    }
+
+    public void setFila_actual(int fila_actual) {
+        this.fila_actual = fila_actual;
+    }
+
+    public int getColumna_actual() {
+        return columna_actual;
+    }
+
+    public void setColumna_actual(int columna_actual) {
+        this.columna_actual = columna_actual;
+    }
+    
+    
 }

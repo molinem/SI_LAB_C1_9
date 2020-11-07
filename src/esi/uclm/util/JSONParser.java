@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package esi.uclm.mazegen;
+package esi.uclm.util;
 
+import esi.uclm.maze.Laberinto;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -16,17 +17,10 @@ import org.json.JSONObject;
  *
  * @author pikac
  */
-public class JSONMazeParser {
+public class JSONParser {
+
     
-    private Laberinto laberinto;
-    
-    public JSONMazeParser () {
-        
-    }
-    
-    public void parseToJSON (Laberinto laberinto,String ruta) {
-        this.laberinto = laberinto;
-        
+    public void parseToJSON (Laberinto laberinto, String ruta) {
         JSONObject principal = new JSONObject();
         principal.put("rows", laberinto.getFilas());
         principal.put("cols", laberinto.getColumnas());
@@ -34,23 +28,23 @@ public class JSONMazeParser {
         
         JSONArray movimientos = new JSONArray();
         JSONArray mov_individual;
-        for (int i=0; i < this.laberinto.getMovimientos().length; i++) {
-            mov_individual = new JSONArray (this.laberinto.getMovimientos()[i]);
+        for (int i=0; i < laberinto.getMovimientos().length; i++) {
+            mov_individual = new JSONArray (laberinto.getMovimientos()[i]);
             movimientos.put(mov_individual);
         }
         principal.put("mov", movimientos);
         
-        JSONArray id_movimientos = new JSONArray(this.laberinto.getId_mov());
+        JSONArray id_movimientos = new JSONArray(laberinto.getId_mov());
         principal.put("id_mov", id_movimientos);
         
         JSONObject celdas = new JSONObject();
-        for (int i=0; i < this.laberinto.getCells().length; i++) {
-            for (int j=0; j < this.laberinto.getCells()[i].length; j++) {
+        for (int i=0; i < laberinto.getCells().length; i++) {
+            for (int j=0; j < laberinto.getCells()[i].length; j++) {
                 String key = "(" + i + ", " + j + ")";
                 
                 JSONObject value = new JSONObject();
-                value.put("value", this.laberinto.getCells()[i][j].getValue());
-                value.put("neighbors", this.laberinto.getCells()[i][j].getVecinos());
+                value.put("value", laberinto.getCells()[i][j].getValue());
+                value.put("neighbors", laberinto.getCells()[i][j].getVecinos());
                 
                 celdas.put(key, value);
             }
