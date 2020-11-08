@@ -5,17 +5,13 @@
  */
 package esi.uclm.maze;
 
-/**
- *
- * @author pikac
- */
 public class Sucesor {
     
     private Accion accion;
-    private Laberinto estado;
+    private Estado estado;
     private double coste;
     
-    public Sucesor (Accion accion, Laberinto estado, double coste) {
+    public Sucesor (Accion accion, Estado estado, double coste) {
         this.accion = accion;
         this.estado = estado;
         this.coste = coste;
@@ -25,7 +21,7 @@ public class Sucesor {
         return accion;
     }
 
-    public Laberinto getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 

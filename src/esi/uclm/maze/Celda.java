@@ -21,6 +21,8 @@ public class Celda {
     /*** VECINOS DE LA CELDA ***/
     private boolean[] vecinos;
     
+    
+    //CONSTRUCTORES DE LA CLASE CELDA
     public Celda (int fila, int columna, int num_vecinos) {
         this.fila = fila;
         this.columna = columna;
@@ -33,6 +35,17 @@ public class Celda {
         }
     }
     
+    public Celda (int fila, int columna, int num_vecinos, int value, boolean[] vecinos) {
+        this(fila, columna, num_vecinos);
+        this.value = 0;
+        
+        //Se copia el array de vecinos
+        this.vecinos = new boolean[vecinos.length];
+        System.arraycopy(vecinos, 0, this.vecinos, 0, vecinos.length);  
+    }
+    
+    
+    //GETTER Y SETTER DE LA CLASE CELDA
     public void setPared (int vecino, boolean pared) {
         this.vecinos[vecino] = pared;
     }  
@@ -57,6 +70,8 @@ public class Celda {
         return vecinos;
     }
     
+    
+    //MÉTODO EQUALS Y HASHCODE
     /**
      * Método para comparar dos objetos
      * @param obj Objeto objeto de una clase Java

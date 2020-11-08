@@ -11,11 +11,13 @@ package esi.uclm.maze;
  */
 public class Accion {
     
+    //ATRIBUTOS DE LA CLASE ACCION
     private char mov;
     private int costo_mov;
     private int inc_x;
     private int inc_y;
     
+    //CONSTRUCTOR DE LA CLASE ACCION
     public Accion (char mov, int costo_mov, int inc_y, int inc_x) {
         this.mov = mov;
         this.costo_mov = costo_mov;
@@ -23,6 +25,7 @@ public class Accion {
         this.inc_x = inc_x;
     }
 
+    //GETTER Y SETTER DE LA CLASE ACCION
     public char getMov() {
         return mov;
     }
@@ -54,5 +57,4 @@ public class Accion {
     public void setInc_y(int inc_y) {
         this.inc_y = inc_y;
     }
-    
 }

@@ -7,7 +7,6 @@ package esi.uclm.maze;
 
 import esi.uclm.util.ElementoDecorado;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 /**
@@ -16,7 +15,7 @@ import java.util.Stack;
  */
 public class Laberinto {
     
-    /*** ATRIBUTOS DE LA CLASE LABERINTO - ESTADO ***/
+    /*** ATRIBUTOS DE LA CLASE LABERINTO ***/
     private int filas;
     private int columnas;
     
@@ -26,13 +25,6 @@ public class Laberinto {
     private char[] id_mov; 
     
     private Celda[][] cells;
-    
-    private int fila_actual;
-    private int columna_actual;
-    
-    private int fila_objetivo;
-    private int columna_objetivo;
-    
     
     /*** ATRIBUTOS AUXILIARES PARA GENERAR EL LABERINTO ***/
     private ElementoDecorado<Celda>[][] celdasElem;
@@ -55,6 +47,28 @@ public class Laberinto {
         
         this.id_mov = new char [4];
         this.id_mov[0] = 'N'; this.id_mov[1] = 'E'; this.id_mov[2] = 'S'; this.id_mov[3] = 'O';
+        
+        this.cells = new Celda [filas][columnas];
+        for (int i=0; i < this.cells.length; i++) {
+            for (int j=0; j < this.cells[0].length; j++) {
+                this.cells[i][j] = new Celda(i, j, this.num_vecinos);
+            }
+        }
+    }
+    
+    public Laberinto (int filas, int columnas, int num_vecinos, int[][] movimientos, char[] id_mov) {
+        this.filas = filas;
+        this.columnas = columnas;
+        
+        this.num_vecinos = num_vecinos;
+        
+        this.movimientos = new int [movimientos.length][movimientos[0].length];
+        for (int i = 0; i < this.movimientos.length; i++) {
+            System.arraycopy(movimientos[i], 0, this.movimientos[i], 0, this.movimientos[i].length);
+        }
+        
+        this.id_mov = new char [id_mov.length];
+        System.arraycopy(id_mov, 0, this.id_mov, 0, id_mov.length);
         
         this.cells = new Celda [filas][columnas];
         for (int i=0; i < this.cells.length; i++) {
@@ -293,77 +307,6 @@ public class Laberinto {
         }
        return mensaje;
     }
-    
-    //MÉTODOS NECESARIOS PARA REALIZAR EL PROBLEMA DE BUSQUEDA
-    
-    public List<Accion> getAcciones () {
-        List<Accion> acciones = new ArrayList<>();
-        
-        for (int i = 0; i< this.id_mov.length; i++) {
-            acciones.add(new Accion(this.id_mov[i], 1, this.movimientos[i][0], this.movimientos[i][1]));
-        }
-        
-        return acciones;
-    }
-    
-    public Laberinto getEstado (Accion accion) {
-        Laberinto laberinto = (Laberinto) this.clone();
-        
-        switch (accion.getMov()) {
-            case 'N':
-                
-                break;
-            case 'E':
-                
-                break;
-            case 'S':
-                
-                break;
-            case 'O':
-                
-                break;
-        }
-            
-        return laberinto;
-    }
-    
-    /**
-     * Método para clonar el laberinto
-     * @return Object con el laberinto clonado
-     */
-    @Override
-    public Object clone() {
-        Laberinto obj = null;
-        
-        try {
-            obj = (Laberinto) super.clone();
-            
-            //Copiamos el array de celdas
-            obj.cells = obj.cells.clone();
-            for (int i = 0; i < obj.cells.length; i++) {
-                obj.cells[i] = obj.cells[i].clone();
-            }
-
-            //Copiamos los identificadores de los movimientos posibles
-            obj.id_mov = obj.id_mov.clone();
-
-            
-            //Copiamos los posibles movimientos
-            obj.movimientos = obj.movimientos.clone();
-            for (int i = 0; i < obj.movimientos.length; i++) {
-                obj.movimientos[i] = obj.movimientos[i].clone();
-            }
-            
-        } catch (CloneNotSupportedException ex) {
-            System.out.println("El laberinto no se ha podido duplicar");
-        }
- 
-        return obj;
-    }
-    
-    public boolean esObjetivo () {
-        return ((fila_actual == fila_objetivo) && (columna_actual == columna_objetivo));
-    }
      
     //GETTER Y SETTER DE LA CLASE LABERINTO
     public int getFilas() {
@@ -388,23 +331,5 @@ public class Laberinto {
 
     public Celda[][] getCells() {
         return cells;
-    }
-
-    public int getFila_actual() {
-        return fila_actual;
-    }
-
-    public void setFila_actual(int fila_actual) {
-        this.fila_actual = fila_actual;
-    }
-
-    public int getColumna_actual() {
-        return columna_actual;
-    }
-
-    public void setColumna_actual(int columna_actual) {
-        this.columna_actual = columna_actual;
-    }
-    
-    
+    }  
 }

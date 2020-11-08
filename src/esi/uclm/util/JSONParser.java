@@ -76,11 +76,27 @@ public class JSONParser {
         JSONObject obj = new JSONObject (fichero);
         int filas = obj.getInt("rows");
         int columnas = obj.getInt("cols");
+        int num_vecinos = obj.getInt("max_n");
+        
+        JSONArray mov = obj.getJSONArray("mov"); JSONArray movimiento_individual;
+        int[][] movimientos = new int [mov.length()][mov.getJSONArray(0).length()];
+        for (int i=0; i < mov.length(); i++) {
+            movimiento_individual = mov.getJSONArray(i);
+            for (int j=0; j < movimiento_individual.length(); j++) {
+                movimientos[i][j] = movimiento_individual.getInt(j);
+            }
+        }
+        
+        JSONArray id_mov = obj.getJSONArray("id_mov");
+        char[] id_movimientos = new char[id_mov.length()];
+        for (int i=0; i < id_mov.length(); i++) {
+            id_movimientos[i] = id_mov.getString(0).charAt(0);
+        }
+        
         JSONObject celdas = obj.getJSONObject("cells");
         JSONObject celdaAux; JSONArray vecinos; int value; 
         
-        
-        Laberinto lab = new Laberinto (filas, columnas);
+        Laberinto lab = new Laberinto (filas, columnas, num_vecinos, movimientos, id_movimientos);
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 celdaAux = celdas.getJSONObject("(" + i + ", " + j +")");
@@ -97,4 +113,24 @@ public class JSONParser {
         return lab;
     }
     
+    public String[] parseToProblema (String rutaFichero) {
+        String[] problema = new String[3];
+        String fichero = "";
+        try (BufferedReader reader = new BufferedReader (new FileReader(rutaFichero))) {  
+            String line = reader.readLine();
+            while (line != null) {
+                fichero = fichero.concat(line);
+                line = reader.readLine();
+            }
+        } catch (IOException ex) {
+            System.out.println("ERROR AL LEER EL FICHERO JSON");
+        }
+        
+        JSONObject obj = new JSONObject (fichero);
+        problema[0] = obj.getString("INITIAL");
+        problema[1] = obj.getString("OBJETIVE");
+        problema[2] = obj.getString("MAZE");
+        
+        return problema;
+    } 
 }

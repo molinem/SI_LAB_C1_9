@@ -13,13 +13,15 @@ public class NodoArbol implements Comparable<NodoArbol> {
     
     private int id;
     private double coste;
-    private Laberinto estado;
+    private Estado estado;
     private NodoArbol padre;
     private Accion accion;
     private int p;
     private double f;
     
-    public NodoArbol (NodoArbol padre, Laberinto estado, double coste, Accion accion, int p, double f) {
+    
+    //CONSTRUCTOR
+    public NodoArbol (NodoArbol padre, Estado estado, double coste, Accion accion, int p, double f) {
         this.padre = padre;
         this.estado = estado;
         this.coste = coste;
@@ -28,6 +30,7 @@ public class NodoArbol implements Comparable<NodoArbol> {
         this.f = f;
     }
 
+    //GETTER Y SETTER DE LA CLASE NODO ARBOL
     public NodoArbol getPadre() {
         return padre;
     }
@@ -44,11 +47,11 @@ public class NodoArbol implements Comparable<NodoArbol> {
         this.id = id;
     }
 
-    public Laberinto getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(Laberinto estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 
@@ -84,29 +87,34 @@ public class NodoArbol implements Comparable<NodoArbol> {
         this.p = p;
     }
     
-    //REVISAR COMPARACION
+    //MÉTODO COMPARE TO PARA LA PRIORITY QUEUE
     @Override
     public int compareTo (NodoArbol nodo) {
-        int r;
+        int r = 0;
         
         if (nodo.getF() < getF()) {
             r = +1;
         } else if (nodo.getF() > getF()){
             r = -1;
         } else {
-            if (nodo.getId() < getId()) {
+            if (nodo.getEstado().getFila() < getEstado().getFila()) {
                 r = +1;
-            } else {
+            } else if (nodo.getEstado().getFila() > getEstado().getFila()) {
                 r = -1;
+            } else {
+                if (nodo.getEstado().getColumna() < getEstado().getColumna()) {
+                    r = +1;
+                } else if (nodo.getEstado().getColumna() > getEstado().getColumna()) {
+                    r = -1;
+                }
             }
-        }
-         
+        } 
+        
         return r;
     }
 
     @Override
     public String toString() {
-        return "NodoArbol{" + "padre=" + padre + ", id=" + id + ", estado=" + estado + ", coste=" + coste + ", accion=" + accion + ", p=" + p + ", f=" + f + '}';
+        return "NodoArbol{" + "id=" + id + ", coste=" + coste + ", estado=" + estado + ", padre=" + padre + ", accion=" + accion + ", p=" + p + ", f=" + f + '}';
     }
-      
 }

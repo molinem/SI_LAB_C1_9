@@ -33,6 +33,5 @@ public class Frontera {
     
     public boolean estaVacia() {
         return colaNodos.isEmpty();
-    }
-    
+    }   
 }
