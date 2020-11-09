@@ -20,7 +20,7 @@ public class Problema {
         JSONParser parser = new JSONParser();
         String[] problema = parser.parseToProblema(fileJSON);
         
-        this.laberinto = parser.parseToLaberinto(problema[3]);
+        this.laberinto = parser.parseToLaberinto(problema[2]);
         
         problema[0] = problema[0].replace("(", "").replace(")", "").replace(",","").trim();
         String[] casillaInicial = problema[0].split(" ");
@@ -62,7 +62,7 @@ public class Problema {
     }
     
 //    ¿Dónde debe ir ubicado? 
-//    public List<Sucesor> getSucesores (Laberinto estado) {
+//    public List<Sucesor> getSucesores (Estado estado) {
 //        List<Sucesor> suc = new ArrayList<>();
 //        List<Accion> acc = new ArrayList<>(estado.getAcciones());
 //        

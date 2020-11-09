@@ -27,5 +27,11 @@ public class Sucesor {
 
     public double getCoste() {
         return coste;
-    }   
+    }
+
+    @Override
+    public String toString() {
+        //"['N',(2,3),1]"
+        return "['"+ getAccion().getMov() + "',(" + getEstado().getFila() + "," + getEstado().getColumna() + ")," + getCoste() + "]";
+    }
 }

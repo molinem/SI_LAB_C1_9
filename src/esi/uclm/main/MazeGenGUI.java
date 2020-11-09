@@ -23,7 +23,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author Molinem
  */
-public class LaberintoGUI extends javax.swing.JFrame {
+public class MazeGenGUI extends javax.swing.JFrame {
 
     private int txtFilasLeidas;
     private int txtColumnasLeidas;
@@ -34,7 +34,7 @@ public class LaberintoGUI extends javax.swing.JFrame {
     /**
      * Creates new form test
      */
-    public LaberintoGUI() {
+    public MazeGenGUI() {
         initComponents();
     }
     
@@ -328,21 +328,23 @@ public class LaberintoGUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LaberintoGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MazeGenGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LaberintoGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MazeGenGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LaberintoGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MazeGenGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LaberintoGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MazeGenGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LaberintoGUI().setVisible(true);
+                new MazeGenGUI().setVisible(true);
             }
         });
     }

@@ -19,6 +19,10 @@ public class NodoArbol implements Comparable<NodoArbol> {
     private int p;
     private double f;
     
+    //ATRIBUTOS PARA PROBAR EN LA FRONTERA
+    private static int contadorId = 0;
+    private static int fila = 0;
+    private static int columna = 0;
     
     //CONSTRUCTOR
     public NodoArbol (NodoArbol padre, Estado estado, double coste, Accion accion, int p, double f) {
@@ -28,6 +32,34 @@ public class NodoArbol implements Comparable<NodoArbol> {
         this.accion = accion;
         this.p = p;
         this.f = f;
+    }
+    
+    //CONSTRUCTORES PARA REALIZAR LA PRUEBA EN LA FRONTERA
+    public NodoArbol () {
+        this.id = ++contadorId;
+        
+        this.padre = new NodoArbol(-1);
+        
+        //int fila, int columna, int num_vecinos, char[] id_movimientos, int[][] movimientos, int value, boolean[] vecinos
+        char[] id_mov = new char[]{'N','E','S','O'}; int[][] movimientos = new int[][]{{-1,0},{0,1},{1,0},{0,-1}};
+        boolean[] vecinos = new boolean[]{false, false, false, false};
+        
+        if ((columna % 49) == 0) {
+            columna = 0;
+            this.estado = new Estado (fila++, columna, 4, id_mov, movimientos, 0, vecinos);
+        } else {
+            this.estado = new Estado (fila, columna++, 4, id_mov, movimientos, 0, vecinos);
+        }
+        
+        
+        this.coste = 1;
+        this.accion = new Accion ('N',1,-1,0);
+        this.p = 0;
+        this.f = Math.floor(Math.random() * 5000000) + 1;  
+    }
+    
+    public NodoArbol (int id) {
+        this.id = id;
     }
 
     //GETTER Y SETTER DE LA CLASE NODO ARBOL
@@ -115,6 +147,7 @@ public class NodoArbol implements Comparable<NodoArbol> {
 
     @Override
     public String toString() {
-        return "NodoArbol{" + "id=" + id + ", coste=" + coste + ", estado=" + estado + ", padre=" + padre + ", accion=" + accion + ", p=" + p + ", f=" + f + '}';
+        // [<ID>][<COSTO>,<ID_ESTADO>,<ID_PADRE>,<ACCIÓN>,<PROFUNDIDAD>,<HEURISTICA>,<VALOR>]        
+        return "[<" + id + ">] [<" + coste + ">, <(" + estado.getFila() + ", " + estado.getColumna() + ")>, <" + padre.getId() + ">, <" + accion.getMov() + ">, <" + p + ">, <" + f + ">]";
     }
 }
