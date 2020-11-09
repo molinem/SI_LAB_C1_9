@@ -1,21 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package esi.uclm.maze;
 
 import esi.uclm.util.ElementoDecorado;
 import java.util.ArrayList;
 import java.util.Stack;
 
-/**
- *
- * @author pikac
- */
+/*****************************************************************************
+* 
+* Class Name: Laberinto
+* Author/s Name: Antonio, Luis y Teresa
+* Description of the class:  representa el laberinto
+* 
+*****************************************************************************/
 public class Laberinto {
     
-    /*** ATRIBUTOS DE LA CLASE LABERINTO ***/
+    //Atributos
     private int filas;
     private int columnas;
     
@@ -26,13 +24,20 @@ public class Laberinto {
     
     private Celda[][] cells;
     
-    /*** ATRIBUTOS AUXILIARES PARA GENERAR EL LABERINTO ***/
+    //Atributos auxiliares para generar el laberinto
     private ElementoDecorado<Celda>[][] celdasElem;
     private ArrayList<ElementoDecorado<Celda>> celdasRestantes;
     private Stack<ElementoDecorado<Celda>> celdasPrevias;
     private ElementoDecorado<Celda> c0;
     
-    // CONSTRUCTORES
+    /*****************************************************************************
+     * 
+     * Constructor Name: Laberinto
+     * Author/s Name: Antonio, Luis y Teresa
+     * Description of constructor: proporcionamos por parámetro las filas
+     * y las columnas
+     * 
+     *****************************************************************************/    
     public Laberinto (int filas, int columnas) {
         this.filas = filas;
         this.columnas = columnas;
@@ -56,6 +61,14 @@ public class Laberinto {
         }
     }
     
+    /*****************************************************************************
+     * 
+     * Constructor Name: Laberinto
+     * Author/s Name: Antonio, Luis y Teresa
+     * Description of constructor: proporcionamos por parámetro las 
+     * filas,columnas,num_vecinos, movimientos y id_mov
+     * 
+     *****************************************************************************/    
     public Laberinto (int filas, int columnas, int num_vecinos, int[][] movimientos, char[] id_mov) {
         this.filas = filas;
         this.columnas = columnas;
@@ -78,7 +91,15 @@ public class Laberinto {
         }
     }
     
-    /*** MÉTODOS PARA GENERAR EL LABERINTO USANDO EL ALGORITMO DE WILSON ***/
+    //------------------ Métodos para generar el laberinto usando el algoritmo de wilson ---------------------
+    
+    /*****************************************************************************
+    * 
+    * Method Name: generarLaberinto
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: genera el laberinto
+    * 
+    *****************************************************************************/
     public void generarLaberinto () {
         ElementoDecorado<Celda> aux;
         
@@ -113,7 +134,15 @@ public class Laberinto {
             }
         }
     }
-    
+
+    /*****************************************************************************
+    * 
+    * Method Name: excavarCaminoAleatorio
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: exacava el camino aleatorio
+    * en el laberinto
+    * 
+    *****************************************************************************/    
     private boolean excavarCaminoAleatorio () {
         ElementoDecorado<Celda> c1 = null;
         
@@ -227,6 +256,14 @@ public class Laberinto {
         return false;
     }
     
+    /*****************************************************************************
+    * 
+    * Method Name: borrarCamino
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: Borra el camino estableciendo el antecesor
+    * a null.
+    * 
+    *****************************************************************************/    
     private void borrarCamino (Stack<ElementoDecorado<Celda>> celdasPrevias, ElementoDecorado<Celda> c2) {
         ElementoDecorado<Celda> c1 = celdasPrevias.pop();
         
@@ -236,6 +273,13 @@ public class Laberinto {
         
     }
     
+    /*****************************************************************************
+    * 
+    * Method Name: derribarPared
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: derriba la pared proporcionando C0 y C1
+    * 
+    *****************************************************************************/    
     private void derribarPared (Celda c0, Celda c1) {
         int dif_y = c1.getFila() - c0.getFila(); int dif_x = c1.getColumna() - c0.getColumna();
         
@@ -250,6 +294,14 @@ public class Laberinto {
         }   
     }
     
+    /*****************************************************************************
+    * 
+    * Method Name: comprobarLaberinto
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: comprueba el laberinto, en caso de que exista
+    * algún error lo mostrará lo almacena en la variable mensaje
+    * 
+    *****************************************************************************/    
     public String comprobarLaberinto () {
         
         String mensaje="";
@@ -308,27 +360,68 @@ public class Laberinto {
        return mensaje;
     }
      
-    //GETTER Y SETTER DE LA CLASE LABERINTO
+    /*****************************************************************************
+    * 
+    * Method Name: getFilas
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene las filas
+    * 
+    *****************************************************************************/
     public int getFilas() {
         return filas;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: getColumnas
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene las columnas
+    * 
+    *****************************************************************************/    
     public int getColumnas() {
         return columnas;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: getNum_vecinos
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene el número de vecinos
+    * 
+    *****************************************************************************/    
     public int getNum_vecinos() {
         return num_vecinos;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: getMovimientos
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene los movimientos
+    * 
+    *****************************************************************************/    
     public int[][] getMovimientos() {
         return movimientos;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: getMovimientos
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene los ids de los movimientos
+    * 
+    *****************************************************************************/     
     public char[] getId_mov() {
         return id_mov;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: getMovimientos
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene los movimientos
+    * 
+    *****************************************************************************/     
     public Celda[][] getCells() {
         return cells;
     }  

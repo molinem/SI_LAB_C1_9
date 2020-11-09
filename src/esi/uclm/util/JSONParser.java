@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package esi.uclm.util;
 
 import esi.uclm.maze.Laberinto;
@@ -13,13 +8,23 @@ import java.io.IOException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/**
- *
- * @author pikac
- */
+/*****************************************************************************
+ * 
+ * Class Name: JSONParser
+ * Author/s Name: Antonio, Luis y Teresa
+ * Description of the class: clase encargada de gestionar y parsear ficheros JSON
+ * 
+ *****************************************************************************/
 public class JSONParser {
 
-    
+    /*****************************************************************************
+    * 
+    * Method Name: parseToJSON
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: parsea el laberinto a json y lo guarda en 
+    * la ruta proporcionada por parámetros
+    * 
+    *****************************************************************************/
     public void parseToJSON (Laberinto laberinto, String ruta) {
         JSONObject principal = new JSONObject();
         principal.put("rows", laberinto.getFilas());
@@ -60,6 +65,13 @@ public class JSONParser {
         }
     }
     
+    /*****************************************************************************
+    * 
+    * Method Name: parseToLaberinto
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: lee el fichero y devuelve un objeto laberinto
+    * 
+    *****************************************************************************/
     public Laberinto parseToLaberinto (String rutaFichero) {
         String fichero = "";
         try (BufferedReader reader = new BufferedReader (new FileReader(rutaFichero))) {  
@@ -113,6 +125,13 @@ public class JSONParser {
         return lab;
     }
     
+    /*****************************************************************************
+    * 
+    * Method Name: parseToProblema
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: lee el fichero y devuelve un array de string con el contenido
+    * 
+    *****************************************************************************/    
     public String[] parseToProblema (String rutaFichero) {
         String[] problema = new String[3];
         String fichero = "";

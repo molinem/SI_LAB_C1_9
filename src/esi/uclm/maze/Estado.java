@@ -1,19 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package esi.uclm.maze;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author pikac
- */
+/*****************************************************************************
+ * 
+ * Class Name: Estado
+ * Author/s Name: Antonio, Luis y Teresa
+ * Description of the class:  Representa el estado
+ * 
+ *****************************************************************************/
 public class Estado {
     
+    //Atributos
     private int fila;
     private int columna;
     private int value;
@@ -23,7 +22,14 @@ public class Estado {
     private boolean[] vecinos;
     
     
-    //CONSTRUCTOR
+    /*****************************************************************************
+    * 
+    * Constructor Name: Estado
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of constructor: crea un estado proporcionando los siguientes
+    * parámetros: fila,columna,num_vecinos,id_movimientos, movientos,value, vecinos
+    * 
+    *****************************************************************************/
     public Estado (int fila, int columna, int num_vecinos, char[] id_movimientos, int[][] movimientos, int value, boolean[] vecinos) {
         this.fila = fila;
         this.columna = columna;
@@ -42,7 +48,16 @@ public class Estado {
         System.arraycopy(vecinos, 0, this.vecinos, 0, this.vecinos.length);
     }
     
-    //MÉTODOS NECESARIOS PARA REALIZAR EL PROBLEMA DE BUSQUEDA
+    //-------------Métodos necesarios para el problema de búsqueda ----------------
+    
+    /*****************************************************************************
+    * 
+    * Method Name: getAcciones
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: Crea y añade una lista con las acciones.
+    * Devuelve una lista con las acciones previamente añadidas
+    * 
+    *****************************************************************************/    
     public List<Accion> getAcciones () {
         List<Accion> acciones = new ArrayList<>();
         
@@ -52,12 +67,28 @@ public class Estado {
         
         return acciones;
     }
-    
+
+    /*****************************************************************************
+    * 
+    * Method Name: move
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: Modifica la fila y la columna a partir de los 
+    * parámetros indicados
+    * 
+    *****************************************************************************/     
     public void move (int inc_x, int inc_y) {
         this.fila = this.fila + inc_x;
         this.columna = this.columna + inc_y;
     }
     
+    /*****************************************************************************
+    * 
+    * Method Name: getEstado
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: Obtiene y devuelve el estado de una accion
+    * pasada por parámetros
+    * 
+    *****************************************************************************/     
     public Estado getEstado (Accion accion) {
         Estado estado = (Estado) this.clone();
         estado.move(accion.getInc_x(), accion.getInc_y());
@@ -65,10 +96,14 @@ public class Estado {
         return estado;
     }
     
-    /**
-     * Método para clonar el laberinto
-     * @return Object con el laberinto clonado
-     */
+    /*****************************************************************************
+    * 
+    * Method Name: clone
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: Clona el laberinto, devuelve el objeto
+    * con el laberinto clonado
+    * 
+    *****************************************************************************/     
     @Override
     public Object clone() {
         Estado obj = null;
@@ -95,63 +130,171 @@ public class Estado {
         return obj;
     }
     
+    /*****************************************************************************
+    * 
+    * Method Name: esObjetivo
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: comprueba si es un objetivo, devuelve true en caso 
+    * de que sea objetivo y false en caso contrario
+    * 
+    *****************************************************************************/     
     public boolean esObjetivo (int f, int c) {
         return ((fila == f) && (columna == c));
     }
 
-    //GETTER Y SETTER DE LA CLASE ESTADO
+    /*****************************************************************************
+    * 
+    * Method Name: getFila
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene la Fila 
+    * 
+    *****************************************************************************/     
     public int getFila() {
         return fila;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: setFila
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: establece la fila
+    * 
+    *****************************************************************************/     
     public void setFila(int fila) {
         this.fila = fila;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: getColumna
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene la columna
+    * 
+    *****************************************************************************/     
     public int getColumna() {
         return columna;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: setColumna
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: establece la columna
+    * 
+    *****************************************************************************/     
     public void setColumna(int columna) {
         this.columna = columna;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: getValue
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene el valor
+    * 
+    *****************************************************************************/     
     public int getValue() {
         return value;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: setValue
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: establece el valor
+    * 
+    *****************************************************************************/     
     public void setValue(int value) {
         this.value = value;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: getNum_vecinos
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene el número de vecinos
+    * 
+    *****************************************************************************/     
     public int getNum_vecinos() {
         return num_vecinos;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: setNum_vecinos
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: establece el número de vecinos
+    * 
+    *****************************************************************************/     
     public void setNum_vecinos(int num_vecinos) {
         this.num_vecinos = num_vecinos;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: getId_movimientos
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene el array de caracteres con los
+    * distintos movientos
+    * 
+    *****************************************************************************/    
     public char[] getId_movimientos() {
         return id_movimientos;
     }
-
+    
+    /*****************************************************************************
+    * 
+    * Method Name: setId_movimientos
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: establece el array de caracteres con los
+    * distintos movientos
+    * 
+    *****************************************************************************/    
     public void setId_movimientos(char[] id_movimientos) {
         this.id_movimientos = id_movimientos;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: getMovimientos
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: establece el array de caracteres con los
+    * distintos movientos
+    * 
+    *****************************************************************************/    
     public int[][] getMovimientos() {
         return movimientos;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: setMovimientos
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: Establece los movientos en la matriz
+    * 
+    *****************************************************************************/     
     public void setMovimientos(int[][] movimientos) {
         this.movimientos = movimientos;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: getVecinos
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: Obtiene los vecinos 
+    * 
+    *****************************************************************************/      
     public boolean[] getVecinos() {
         return vecinos;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: setVecinos
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: establece los vecinos 
+    * 
+    *****************************************************************************/    
     public void setVecinos(boolean[] vecinos) {
         this.vecinos = vecinos;
     }

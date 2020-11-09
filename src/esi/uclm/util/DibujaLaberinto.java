@@ -1,4 +1,3 @@
-
 package esi.uclm.util;
 
 import esi.uclm.maze.Laberinto;
@@ -6,28 +5,58 @@ import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JComponent;
 
-/**
- *
- * @author luismolina
- */
+/*****************************************************************************
+ * 
+ * Class Name: DibujaLaberinto
+ * Author/s Name: Antonio, Luis y Teresa
+ * Description of the class: clase encargada de dibujar el laberinto
+ * 
+ *****************************************************************************/
 public class DibujaLaberinto extends JComponent {
     
+    //Atributos
     private Laberinto laberinto;
     private int x_final;
     private int y_final;
     
-    public DibujaLaberinto(){
-        /*** Constructor por defecto ***/
-    }
+    /*****************************************************************************
+    * 
+    * Method Name: DibujaLaberinto
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: constructor por defecto
+    * 
+    *****************************************************************************/
+    public DibujaLaberinto(){}
     
+    /*****************************************************************************
+    * 
+    * Method Name: setLaberinto
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: establece el laberinto
+    * 
+    *****************************************************************************/
     public void setLaberinto(Laberinto lab){
         this.laberinto = lab;
     }
     
+    /*****************************************************************************
+    * 
+    * Method Name: getLaberinto
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene el laberinto
+    * 
+    *****************************************************************************/
     public Laberinto getLaberinto () {
         return this.laberinto;
     }
     
+    /*****************************************************************************
+    * 
+    * Method Name: Paint
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: dibuja el laberinto
+    * 
+    *****************************************************************************/
     @Override
     public void paint(Graphics g){
         int x = 10, y = 10;
@@ -73,10 +102,24 @@ public class DibujaLaberinto extends JComponent {
         g.fillRect(10, lado * this.laberinto.getFilas() + 10, lado * this.laberinto.getColumnas() + 2, 5);
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: getX_final
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene la x_final
+    * 
+    *****************************************************************************/
     public int getX_final() {
         return x_final;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: getY_final
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: y_final
+    * 
+    *****************************************************************************/    
     public int getY_final() {
         return y_final;
     }

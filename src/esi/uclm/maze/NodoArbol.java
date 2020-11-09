@@ -1,16 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package esi.uclm.maze;
 
-/**
- *
- * @author pikac
- */
+/*****************************************************************************
+ * 
+ * Class Name: NodoArbol
+ * Author/s Name: Antonio, Luis y Teresa
+ * Description of the class: representa el nodo del arbol
+ * 
+ *****************************************************************************/
 public class NodoArbol implements Comparable<NodoArbol> {
     
+    //Atributos
     private int id;
     private double coste;
     private Estado estado;
@@ -19,12 +18,19 @@ public class NodoArbol implements Comparable<NodoArbol> {
     private int p;
     private double f;
     
-    //ATRIBUTOS PARA PROBAR EN LA FRONTERA
+    //Atributos para probar en la frontera
     private static int contadorId = 0;
     private static int fila = 0;
     private static int columna = 0;
     
-    //CONSTRUCTOR
+    /*****************************************************************************
+    * 
+    * Constructor Name: NodoArbol
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of constructor: construye un arbol indicando el padre,
+    * estado,coste,acción, p y f
+    * 
+    *****************************************************************************/
     public NodoArbol (NodoArbol padre, Estado estado, double coste, Accion accion, int p, double f) {
         this.padre = padre;
         this.estado = estado;
@@ -34,7 +40,13 @@ public class NodoArbol implements Comparable<NodoArbol> {
         this.f = f;
     }
     
-    //CONSTRUCTORES PARA REALIZAR LA PRUEBA EN LA FRONTERA
+    /*****************************************************************************
+    * 
+    * Constructor Name: NodoArbol
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of constructor: Constructor para realizar la prueba en la frontera
+    * 
+    *****************************************************************************/    
     public NodoArbol () {
         this.id = ++contadorId;
         
@@ -58,68 +70,188 @@ public class NodoArbol implements Comparable<NodoArbol> {
         this.f = Math.floor(Math.random() * 5000000) + 1;  
     }
     
+    /*****************************************************************************
+    * 
+    * Constructor Name: NodoArbol
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of constructor: Constructor para realizar la prueba en la frontera
+    * 
+    *****************************************************************************/     
     public NodoArbol (int id) {
         this.id = id;
     }
 
-    //GETTER Y SETTER DE LA CLASE NODO ARBOL
+    /*****************************************************************************
+    * 
+    * Method Name: getPadre()
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene el padre 
+    * 
+    *****************************************************************************/
     public NodoArbol getPadre() {
         return padre;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: 
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: establece el padre
+    * 
+    *****************************************************************************/
     public void setPadre(NodoArbol padre) {
         this.padre = padre;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: getId
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene el id
+    * 
+    *****************************************************************************/    
     public int getId() {
         return id;
     }
+
+    /*****************************************************************************
+    * 
+    * Method Name: setId
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: Establece el id
+    * 
+    *****************************************************************************/
 
     public void setId(int id) {
         this.id = id;
     }
 
+
+    /*****************************************************************************
+    * 
+    * Method Name: getEstado
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene el estado
+    * 
+    *****************************************************************************/    
     public Estado getEstado() {
         return estado;
     }
 
+    
+    /*****************************************************************************
+    * 
+    * Method Name: setEstado
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: Establece el estado
+    * 
+    *****************************************************************************/
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
 
+
+    /*****************************************************************************
+    * 
+    * Method Name: getCoste
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene el coste
+    * 
+    *****************************************************************************/    
     public double getCoste() {
         return coste;
     }
 
+    
+    /*****************************************************************************
+    * 
+    * Method Name: setCoste
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: establece el coste
+    * 
+    *****************************************************************************/
     public void setCoste(double coste) {
         this.coste = coste;
     }
 
+
+    /*****************************************************************************
+    * 
+    * Method Name: getAccion
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene la acción
+    * 
+    *****************************************************************************/    
     public Accion getAccion() {
         return accion;
     }
 
+    
+    /*****************************************************************************
+    * 
+    * Method Name: setAccion
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: establece la accion
+    * 
+    *****************************************************************************/
     public void setAccion(Accion accion) {
         this.accion = accion;
     }
 
+
+    /*****************************************************************************
+    * 
+    * Method Name: getF
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene la F
+    * 
+    *****************************************************************************/    
     public double getF() {
         return f;
     }
 
+    
+    /*****************************************************************************
+    * 
+    * Method Name: setF
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: establece la F
+    * 
+    *****************************************************************************/
     public void setF(double f) {
         this.f = f;
     }
 
+    
+    /*****************************************************************************
+    * 
+    * Method Name: getP
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene la P
+    * 
+    *****************************************************************************/
     public int getP() {
         return p;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: setP
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: establece la P
+    * 
+    *****************************************************************************/    
     public void setP(int p) {
         this.p = p;
     }
     
-    //MÉTODO COMPARE TO PARA LA PRIORITY QUEUE
+    /*****************************************************************************
+    * 
+    * Method Name: compareTo
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: compare To usado para la priority queue
+    * 
+    *****************************************************************************/    
     @Override
     public int compareTo (NodoArbol nodo) {
         int r = 0;
@@ -145,9 +277,17 @@ public class NodoArbol implements Comparable<NodoArbol> {
         return r;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: ToString
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: devuelve en una cadena el id,costo,id_estado....
+    * 
+    *****************************************************************************/    
     @Override
     public String toString() {
         // [<ID>][<COSTO>,<ID_ESTADO>,<ID_PADRE>,<ACCIÓN>,<PROFUNDIDAD>,<HEURISTICA>,<VALOR>]        
-        return "[<" + id + ">] [<" + coste + ">, <(" + estado.getFila() + ", " + estado.getColumna() + ")>, <" + padre.getId() + ">, <" + accion.getMov() + ">, <" + p + ">, <" + f + ">]";
+        return "[<" + id + ">] [<" + coste + ">, <(" + estado.getFila() + ", " + estado.getColumna() + ")>, <" +
+                padre.getId() + ">, <" + accion.getMov() + ">, <" + p + ">, <" + f + ">]";
     }
 }
