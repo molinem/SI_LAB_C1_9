@@ -10,7 +10,7 @@ import java.util.List;
  * Description of the class:  Representa el estado
  * 
  *****************************************************************************/
-public class Estado {
+public class Estado implements Cloneable {
     
     //Atributos
     private int fila;
@@ -62,7 +62,9 @@ public class Estado {
         List<Accion> acciones = new ArrayList<>();
         
         for (int i = 0; i< this.id_movimientos.length; i++) {
-            acciones.add(new Accion(this.id_movimientos[i], 1, this.movimientos[i][0], this.movimientos[i][1]));
+            if (vecinos[i] == true) {
+                acciones.add(new Accion(this.id_movimientos[i], 1, this.movimientos[i][0], this.movimientos[i][1]));
+            } 
         }
         
         return acciones;
@@ -91,8 +93,9 @@ public class Estado {
     *****************************************************************************/     
     public Estado getEstado (Accion accion) {
         Estado estado = (Estado) this.clone();
-        estado.move(accion.getInc_x(), accion.getInc_y());
+        estado.move(accion.getInc_y(), accion.getInc_x());
             
+        //Hay que añadir cosas
         return estado;
     }
     
@@ -110,7 +113,6 @@ public class Estado {
         
         try {
             obj = (Estado) super.clone();
-            
             //Clonamos el array de celdas vecinas
             obj.vecinos = obj.vecinos.clone();
 
@@ -124,10 +126,19 @@ public class Estado {
             }
             
         } catch (CloneNotSupportedException ex) {
-            System.out.println("El laberinto no se ha podido duplicar");
+            ex.printStackTrace();
         }
  
         return obj;
+    }
+    
+    public int getHeuristica (int f, int c) {
+        int dif_fila = fila - f;
+        int dif_columna = columna - c;
+        
+        int heuristica = Math.abs(dif_fila) + Math.abs(dif_columna);
+        
+        return heuristica;
     }
     
     /*****************************************************************************
@@ -142,6 +153,10 @@ public class Estado {
         return ((fila == f) && (columna == c));
     }
 
+    public String getID() {
+        return "(" + this.getFila() + ", " + this.getColumna() + ")";
+    }
+    
     /*****************************************************************************
     * 
     * Method Name: getFila

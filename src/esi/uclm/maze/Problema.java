@@ -15,8 +15,8 @@ public class Problema {
     //Atributos
     private Estado estadoInicial;
     private Estado estadoFinal;
-    private Laberinto laberinto;
     
+    private EspacioDeEstados espacioDeEstados;
     /*****************************************************************************
     * 
     * Constructor Name: Problema
@@ -28,17 +28,18 @@ public class Problema {
         JSONParser parser = new JSONParser();
         String[] problema = parser.parseToProblema(fileJSON);
         
-        this.laberinto = parser.parseToLaberinto(problema[2]);
+        Estado[][] laberinto = parser.parseToEstado(problema[2]);
+        this.espacioDeEstados = new EspacioDeEstados (laberinto);
         
         problema[0] = problema[0].replace("(", "").replace(")", "").replace(",","").trim();
         String[] casillaInicial = problema[0].split(" ");
         int inicio_x = Integer.parseInt(casillaInicial[0]); int inicio_y = Integer.parseInt(casillaInicial[1]);
-        this.estadoInicial = new Estado(inicio_x, inicio_y, laberinto.getNum_vecinos(), laberinto.getId_mov(), laberinto.getMovimientos(), laberinto.getCells()[inicio_x][inicio_y].getValue(), laberinto.getCells()[inicio_x][inicio_y].getVecinos());
+        this.estadoInicial = laberinto[inicio_x][inicio_y];
         
         problema[1] = problema[1].replace("(", "").replace(")", "").replace(",","").trim();
         String[] casillaFinal = problema[1].split(" ");
         int final_x = Integer.parseInt(casillaFinal[0]); int final_y = Integer.parseInt(casillaFinal[1]);
-        this.estadoFinal = new Estado(final_x, final_y, laberinto.getNum_vecinos(), laberinto.getId_mov(), laberinto.getMovimientos(), laberinto.getCells()[final_x][final_y].getValue(), laberinto.getCells()[final_x][final_y].getVecinos());
+        this.estadoFinal = laberinto[final_x][final_y];
     }
 
     /*****************************************************************************
@@ -96,38 +97,12 @@ public class Problema {
     public void setEstadoFinal(Estado estadoFinal) {
         this.estadoFinal = estadoFinal;
     }
-    
-    /*****************************************************************************
-    * 
-    * Constructor Name: getLaberinto
-    * Author/s Name: Antonio, Luis y Teresa
-    * Description of constructor: obtiene el laberinto
-    * 
-    *****************************************************************************/     
-    public Laberinto getLaberinto() {
-        return laberinto;
+
+    public EspacioDeEstados getEspacioDeEstados() {
+        return espacioDeEstados;
     }
 
-    /*****************************************************************************
-    * 
-    * Constructor Name: setLaberinto
-    * Author/s Name: Antonio, Luis y Teresa
-    * Description of constructor: establece el laberinto
-    * 
-    *****************************************************************************/     
-    public void setLaberinto(Laberinto laberinto) {
-        this.laberinto = laberinto;
+    public void setEspacioDeEstados(EspacioDeEstados espacioDeEstados) {
+        this.espacioDeEstados = espacioDeEstados;
     }
-    
-//    ¿Dónde debe ir ubicado? 
-//    public List<Sucesor> getSucesores (Estado estado) {
-//        List<Sucesor> suc = new ArrayList<>();
-//        List<Accion> acc = new ArrayList<>(estado.getAcciones());
-//        
-//        acc.forEach((accion) -> {
-//            suc.add(new Sucesor (accion, estado.getEstado(accion), 1));
-//        });
-//        
-//        return suc;
-//    }
 }

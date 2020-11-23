@@ -110,7 +110,7 @@ public class NodoArbol implements Comparable<NodoArbol> {
     * Description of method: obtiene el id
     * 
     *****************************************************************************/    
-    public int getId() {
+    public int getID() {
         return id;
     }
 
@@ -122,7 +122,7 @@ public class NodoArbol implements Comparable<NodoArbol> {
     * 
     *****************************************************************************/
 
-    public void setId(int id) {
+    public void setID(int id) {
         this.id = id;
     }
 
@@ -244,7 +244,7 @@ public class NodoArbol implements Comparable<NodoArbol> {
     public void setP(int p) {
         this.p = p;
     }
-    
+
     /*****************************************************************************
     * 
     * Method Name: compareTo
@@ -288,6 +288,6 @@ public class NodoArbol implements Comparable<NodoArbol> {
     public String toString() {
         // [<ID>][<COSTO>,<ID_ESTADO>,<ID_PADRE>,<ACCIÓN>,<PROFUNDIDAD>,<HEURISTICA>,<VALOR>]        
         return "[<" + id + ">] [<" + coste + ">, <(" + estado.getFila() + ", " + estado.getColumna() + ")>, <" +
-                padre.getId() + ">, <" + accion.getMov() + ">, <" + p + ">, <" + f + ">]";
+                padre.getID() + ">, <" + accion.getMov() + ">, <" + p + ">, <" + f + ">]";
     }
 }

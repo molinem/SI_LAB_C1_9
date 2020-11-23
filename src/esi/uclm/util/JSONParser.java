@@ -1,5 +1,6 @@
 package esi.uclm.util;
 
+import esi.uclm.maze.Estado;
 import esi.uclm.maze.Laberinto;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -102,7 +103,7 @@ public class JSONParser {
         JSONArray id_mov = obj.getJSONArray("id_mov");
         char[] id_movimientos = new char[id_mov.length()];
         for (int i=0; i < id_mov.length(); i++) {
-            id_movimientos[i] = id_mov.getString(0).charAt(0);
+            id_movimientos[i] = id_mov.getString(i).charAt(0);
         }
         
         JSONObject celdas = obj.getJSONObject("cells");
@@ -152,4 +153,69 @@ public class JSONParser {
         
         return problema;
     } 
+    
+    
+    /*****************************************************************************
+    * 
+    * Method Name: parseToLaberinto
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: lee el fichero y devuelve un objeto laberinto
+    * 
+    *****************************************************************************/
+    public Estado[][] parseToEstado (String rutaFichero) {
+        String fichero = "";
+        try (BufferedReader reader = new BufferedReader (new FileReader("./ejemplos/" + rutaFichero))) {  
+            String line = reader.readLine();
+            while (line != null) {
+                fichero = fichero.concat(line);
+                line = reader.readLine();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        
+        
+        JSONObject obj = new JSONObject (fichero);
+        int filas = obj.getInt("rows");
+        int columnas = obj.getInt("cols");
+        int num_vecinos = obj.getInt("max_n");
+        
+        JSONArray mov = obj.getJSONArray("mov"); JSONArray movimiento_individual;
+        int[][] movimientos = new int [mov.length()][mov.getJSONArray(0).length()];
+        for (int i=0; i < mov.length(); i++) {
+            movimiento_individual = mov.getJSONArray(i);
+            for (int j=0; j < movimiento_individual.length(); j++) {
+                movimientos[i][j] = movimiento_individual.getInt(j);
+            }
+        }
+        
+        JSONArray id_mov = obj.getJSONArray("id_mov");
+        char[] id_movimientos = new char[id_mov.length()];
+        for (int i=0; i < id_mov.length(); i++) {
+            id_movimientos[i] = id_mov.getString(i).charAt(0);
+        }
+        
+        
+        JSONObject celdas = obj.getJSONObject("cells");
+        JSONObject celdaAux; JSONArray vecinos; 
+        int value; boolean[] vecinosEstado;
+        
+        Estado[][] lab = new Estado[filas][columnas];
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                celdaAux = celdas.getJSONObject("(" + i + ", " + j +")");
+                value = celdaAux.getInt("value");
+                vecinos = celdaAux.getJSONArray("neighbors");
+                
+                vecinosEstado = new boolean [vecinos.length()];
+                for (int k = 0; k < vecinos.length(); k++) {
+                    vecinosEstado[k] = vecinos.getBoolean(k);
+                }
+                
+                lab[i][j] = new Estado(i, j, num_vecinos, id_movimientos, movimientos, value, vecinosEstado);
+            }
+        }
+        
+        return lab;
+    }
 }
