@@ -28,19 +28,22 @@ public class Inicio {
 
     private final static int PROF_MAX = 1000000;
     private final static boolean CON_PODA = true;
+    private static String [] ficheros = {"./ejemplos/problema_5x5.json","./ejemplos/problema_10x10.json", "./ejemplos/problema_25x25.json", "./ejemplos/problema_25x50.json", "./ejemplos/problema_50x25.json", "./ejemplos/problema_50x50.json", "./ejemplos/problema_100x100.json"};
+    private static int contador;
     
     // "./ejemplos/problema_10x10.json", "./ejemplos/problema_25x25.json", "./ejemplos/problema_25x50.json", "./ejemplos/problema_50x25.json", "./ejemplos/problema_50x50.json", "./ejemplos/problema_100x100.json"
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String [] ficheros = {"./ejemplos/problema_5x5.json"};
         String [] estrategias = {"BREADTH", "DEPTH", "UNIFORM", "GREEDY", "A"};
+        contador = 0;
         
         for (int i = 0; i < ficheros.length; i++) {
             for (int j=0; j < estrategias.length; j++) {
                 busqueda(new Problema(ficheros[i]), estrategias[j], PROF_MAX, CON_PODA);
             }
+            contador++;
         }  
     }
     
@@ -140,7 +143,7 @@ public class Inicio {
     }
     
     public static void generarFichero(Problema prob, Deque<NodoArbol> camino, String estrategia, int total) {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(new File("./soluciones/sol_" + estrategia + ".txt")))) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(new File("./soluciones/sol_" + estrategia + "_" + contador + ".txt")))) {
             pw.println("[id][cost,state,father_id,action,depth,h,value]");
             
             int i = 0;
