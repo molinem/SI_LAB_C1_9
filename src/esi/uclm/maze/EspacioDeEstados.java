@@ -29,9 +29,16 @@ public class EspacioDeEstados {
             nuevoEstado.setVecinos(laberinto[nuevoEstado.getFila()][nuevoEstado.getColumna()].getVecinos());
             nuevoEstado.setValue(laberinto[nuevoEstado.getFila()][nuevoEstado.getColumna()].getValue());
             suc.add(new Sucesor (acc.get(i), nuevoEstado, acc.get(i).getCosto_mov() + nuevoEstado.getValue()));
-            
         }
         
         return suc;  
+    }
+    
+    public int getFilas () {
+        return this.laberinto.length;
+    }
+    
+    public int getColumnas () {
+        return this.laberinto[0].length;
     }
 }

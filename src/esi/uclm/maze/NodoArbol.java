@@ -32,6 +32,7 @@ public class NodoArbol implements Comparable<NodoArbol> {
     * 
     *****************************************************************************/
     public NodoArbol (NodoArbol padre, Estado estado, double coste, Accion accion, int p, double f) {
+        this.id = contadorId++;
         this.padre = padre;
         this.estado = estado;
         this.coste = coste;
@@ -48,7 +49,7 @@ public class NodoArbol implements Comparable<NodoArbol> {
     * 
     *****************************************************************************/    
     public NodoArbol () {
-        this.id = ++contadorId;
+        this.id = contadorId++;
         
         this.padre = new NodoArbol(-1);
         
@@ -270,11 +271,25 @@ public class NodoArbol implements Comparable<NodoArbol> {
                     r = +1;
                 } else if (nodo.getEstado().getColumna() > getEstado().getColumna()) {
                     r = -1;
+                } else {
+                    if (nodo.getID() < getID()) {
+                        r = +1;
+                    } else {
+                        r = -1;
+                    }
                 }
             }
         } 
         
         return r;
+    }
+
+    public static int getContadorId() {
+        return contadorId;
+    }
+
+    public static void setContadorId(int contadorId) {
+        NodoArbol.contadorId = contadorId;
     }
 
     /*****************************************************************************
