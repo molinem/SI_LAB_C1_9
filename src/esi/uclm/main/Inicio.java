@@ -33,21 +33,17 @@ public class Inicio {
     private static final String RUTA_SOLUCION = "./soluciones/";
     private static final String [] FICHEROS = {"problema_5x5.json", "problema_10x10.json", "problema_25x25.json", "problema_25x50.json", "problema_50x25.json", "problema_50x50.json", "problema_100x100.json"};
     private static final String [] FICHEROS_SOL = {"sol_5x5_", "sol_10x10_", "sol_25x25_", "sol_25x50_", "sol_50x25_", "sol_50x50_", "sol_100x100_"};
-    private static int contador;
     
-    // "./ejemplos/problema_10x10.json", "./ejemplos/problema_25x25.json", "./ejemplos/problema_25x50.json", "./ejemplos/problema_50x25.json", "./ejemplos/problema_50x50.json", "./ejemplos/problema_100x100.json"
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         String [] estrategias = {"BREADTH", "DEPTH", "UNIFORM", "GREEDY", "A"};
-        contador = 0;
         
         for (String fichero : FICHEROS) {
             for (String estrategia : estrategias) {
                 busqueda(new Problema(RUTA_FUENTES + fichero), estrategia, PROF_MAX);
             }
-            contador++;
         } 
         
         for (int i = 0; i < FICHEROS_SOL.length; i++) {
@@ -63,9 +59,6 @@ public class Inicio {
     
     public static boolean busqueda(Problema prob, String estrategia, int Prof_Max) {
         NodoArbol.setContadorId(0);
-        
-        //Se pone el total a 0
-        int total = 0;
         
         //Se crea la frontera vacia
         Frontera frontera = new Frontera();
@@ -98,24 +91,15 @@ public class Inicio {
 
             if (prob.esObjetivo(n_actual.getEstado())) {
                 solucion = true;
-            } else {
-                List<Sucesor> LS = prob.getEspacioDeEstados().getSucesores(n_actual.getEstado());
-                List<NodoArbol> LN = CreaListaNodosArbol(prob, LS, n_actual, PROF_MAX, estrategia, nodosVisitados);
-                if (!nodosVisitados.containsKey(n_actual.getEstado().getID()))
-                    nodosVisitados.put(n_actual.getEstado().getID(), n_actual.getF());
+            } else if (!nodosVisitados.containsKey(n_actual.getEstado().getID()) && n_actual.getP() < PROF_MAX) {
+                nodosVisitados.put(n_actual.getEstado().getID(), n_actual.getF());
                 
-                for (NodoArbol nodo : LN) {                
-                    String nodoString = nodo.getEstado().getID();
-                    if (nodosVisitados.containsKey(nodoString)) {
-                        if ((Math.abs(nodo.getF()) < Math.abs(nodosVisitados.get(nodoString)))) {
-                            frontera.insertar(nodo);
-                            nodosVisitados.replace(nodoString, nodo.getF());
-                        }
-                    } else {
-                        nodosVisitados.put(nodoString, nodo.getF());
-                        frontera.insertar(nodo);
-                    }
-                }
+                List<Sucesor> LS = prob.getEspacioDeEstados().getSucesores(n_actual.getEstado());
+                List<NodoArbol> LN = CreaListaNodosArbol(prob, LS, n_actual, PROF_MAX, estrategia);
+                
+                LN.forEach((nodo) -> {                
+                    frontera.insertar(nodo);
+                });
             }
         }
         
@@ -128,49 +112,47 @@ public class Inicio {
             
             //Se inserta el nodo inicial y se genera el fichero en la carpeta de la solución
             nodosSolucion.addFirst(n_inicial);
-            generarFichero(prob, nodosSolucion, estrategia, total);
+            generarFichero(prob, nodosSolucion, estrategia);
         }
         
         return solucion;
     }
     
-    public static List<NodoArbol> CreaListaNodosArbol(Problema prob, List<Sucesor> LS, NodoArbol n_actual, int Prof_Max, String estrategia, Map<String, Double> nodosVisitados) {
+    public static List<NodoArbol> CreaListaNodosArbol(Problema prob, List<Sucesor> LS, NodoArbol n_actual, int Prof_Max, String estrategia) {
         List<NodoArbol> LN = new ArrayList();
         if (n_actual.getP() < Prof_Max) { // Si aún podemos seguir iterando por no alcanzar la profundidad máxima
             NodoArbol aux = null;
             for (Sucesor sucesor : LS) {
-//                if (!nodosVisitados.containsKey(sucesor.getEstado().getID())) {
-                    //Dependiendo de la estrategia generamos los nodos
-                    switch (estrategia) {
-                        case "BREADTH":
-                            aux = new NodoArbol(n_actual, sucesor.getEstado(), n_actual.getCoste() + sucesor.getCoste(), sucesor.getAccion(),
-                                    n_actual.getP() + 1, n_actual.getP() + 1);
-                            break;
-                        case "DEPTH":
-                            aux = new NodoArbol(n_actual, sucesor.getEstado(), n_actual.getCoste() + sucesor.getCoste(), sucesor.getAccion(),
-                                    n_actual.getP() + 1, 1.0/((double) n_actual.getP() + 1));
-                            break;
-                        case "UNIFORM":
-                            aux = new NodoArbol(n_actual, sucesor.getEstado(), n_actual.getCoste() + sucesor.getCoste(), sucesor.getAccion(),
-                                    n_actual.getP() + 1, n_actual.getCoste() + sucesor.getCoste());
-                            break;
-                        case "GREEDY":
-                            aux = new NodoArbol(n_actual, sucesor.getEstado(), n_actual.getCoste() + sucesor.getCoste(), sucesor.getAccion(),
-                                    n_actual.getP() + 1, sucesor.getEstado().getHeuristica(prob.getEstadoFinal().getFila(), prob.getEstadoFinal().getColumna()));
-                            break;
-                        case "A":
-                            aux = new NodoArbol(n_actual, sucesor.getEstado(), n_actual.getCoste() + sucesor.getCoste(), sucesor.getAccion(),
-                                    n_actual.getP() + 1, n_actual.getCoste() + sucesor.getCoste() + sucesor.getEstado().getHeuristica(prob.getEstadoFinal().getFila(), prob.getEstadoFinal().getColumna()));
-                            break;
-                    }
-                    LN.add(aux);
-//                }
+                //Dependiendo de la estrategia generamos los nodos
+                switch (estrategia) {
+                    case "BREADTH":
+                        aux = new NodoArbol(n_actual, sucesor.getEstado(), n_actual.getCoste() + sucesor.getCoste(), sucesor.getAccion(),
+                                n_actual.getP() + 1, n_actual.getP() + 1);
+                        break;
+                    case "DEPTH":
+                        aux = new NodoArbol(n_actual, sucesor.getEstado(), n_actual.getCoste() + sucesor.getCoste(), sucesor.getAccion(),
+                                n_actual.getP() + 1, 1.0/((double) n_actual.getP() + 1));
+                        break;
+                    case "UNIFORM":
+                        aux = new NodoArbol(n_actual, sucesor.getEstado(), n_actual.getCoste() + sucesor.getCoste(), sucesor.getAccion(),
+                                n_actual.getP() + 1, n_actual.getCoste() + sucesor.getCoste());
+                        break;
+                    case "GREEDY":
+                        aux = new NodoArbol(n_actual, sucesor.getEstado(), n_actual.getCoste() + sucesor.getCoste(), sucesor.getAccion(),
+                                n_actual.getP() + 1, sucesor.getEstado().getHeuristica(prob.getEstadoFinal().getFila(), prob.getEstadoFinal().getColumna()));
+                        break;
+                    case "A":
+                        aux = new NodoArbol(n_actual, sucesor.getEstado(), n_actual.getCoste() + sucesor.getCoste(), sucesor.getAccion(),
+                                n_actual.getP() + 1, n_actual.getCoste() + sucesor.getCoste() + sucesor.getEstado().getHeuristica(prob.getEstadoFinal().getFila(), prob.getEstadoFinal().getColumna()));
+                        break;
+                }
+                LN.add(aux);
             }
         }
         return LN;
     }
     
-    public static void generarFichero(Problema prob, Deque<NodoArbol> camino, String estrategia, int total) {
+    public static void generarFichero(Problema prob, Deque<NodoArbol> camino, String estrategia) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(new File(RUTA_SOLUCION + "sol_" + prob.getEspacioDeEstados().getFilas() + "x" +prob.getEspacioDeEstados().getColumnas()+ "_" + estrategia + ".txt")))) {
             pw.println("[id][cost,state,father_id,action,depth,h,value]");
             
