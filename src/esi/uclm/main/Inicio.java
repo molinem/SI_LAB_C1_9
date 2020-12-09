@@ -15,11 +15,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -131,7 +134,7 @@ public class Inicio {
                         break;
                     case "DEPTH":
                         aux = new NodoArbol(n_actual, sucesor.getEstado(), n_actual.getCoste() + sucesor.getCoste(), sucesor.getAccion(),
-                                n_actual.getP() + 1, 1.0/((double) n_actual.getP() + 1));
+                                n_actual.getP() + 1, 1.0/((double) n_actual.getP() + 2));
                         break;
                     case "UNIFORM":
                         aux = new NodoArbol(n_actual, sucesor.getEstado(), n_actual.getCoste() + sucesor.getCoste(), sucesor.getAccion(),
@@ -153,18 +156,32 @@ public class Inicio {
     }
     
     public static void generarFichero(Problema prob, Deque<NodoArbol> camino, String estrategia) {
+        DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+        df.setMaximumFractionDigits(340); 
+        
         try (PrintWriter pw = new PrintWriter(new FileWriter(new File(RUTA_SOLUCION + "sol_" + prob.getEspacioDeEstados().getFilas() + "x" +prob.getEspacioDeEstados().getColumnas()+ "_" + estrategia + ".txt")))) {
             pw.println("[id][cost,state,father_id,action,depth,h,value]");
-            
             int i = 0;
-            for (NodoArbol nodoarbol : camino) {
-                if (i == 0) {
-                    pw.println("[" + nodoarbol.getID() + "][" + (int) nodoarbol.getCoste() + "," + nodoarbol.getEstado().getID() + ",None,None," + nodoarbol.getP() + "," + Math.abs(nodoarbol.getEstado().getHeuristica(prob.getEstadoFinal().getFila(), prob.getEstadoFinal().getColumna())) + "," + Math.abs((int) nodoarbol.getF()) + "]");
-                } else {
-                    pw.println("[" + nodoarbol.getID() + "][" + (int) nodoarbol.getCoste() + "," + nodoarbol.getEstado().getID() + "," + nodoarbol.getPadre().getID() + "," + nodoarbol.getAccion().getMov() + "," + nodoarbol.getP() + "," + Math.abs(nodoarbol.getEstado().getHeuristica(prob.getEstadoFinal().getFila(), prob.getEstadoFinal().getColumna())) + "," + Math.abs((int) nodoarbol.getF()) + "]");
+            if (estrategia.equals("DEPTH")) {
+                for (NodoArbol nodoarbol : camino) {
+                    if (i == 0) {
+                        pw.println("[" + nodoarbol.getID() + "][" + (int) nodoarbol.getCoste() + "," + nodoarbol.getEstado().getID() + ",None,None," + nodoarbol.getP() + "," + Math.abs(nodoarbol.getEstado().getHeuristica(prob.getEstadoFinal().getFila(), prob.getEstadoFinal().getColumna())) + "," + nodoarbol.getF() + "]");
+                    } else {
+                        pw.println("[" + nodoarbol.getID() + "][" + (int) nodoarbol.getCoste() + "," + nodoarbol.getEstado().getID() + "," + nodoarbol.getPadre().getID() + "," + nodoarbol.getAccion().getMov() + "," + nodoarbol.getP() + "," + Math.abs(nodoarbol.getEstado().getHeuristica(prob.getEstadoFinal().getFila(), prob.getEstadoFinal().getColumna())) + "," + df.format(nodoarbol.getF()) + "]");
+                    }
+                    i++; 
                 }
-                i++; 
+            } else {
+                for (NodoArbol nodoarbol : camino) {
+                    if (i == 0) {
+                        pw.println("[" + nodoarbol.getID() + "][" + (int) nodoarbol.getCoste() + "," + nodoarbol.getEstado().getID() + ",None,None," + nodoarbol.getP() + "," + Math.abs(nodoarbol.getEstado().getHeuristica(prob.getEstadoFinal().getFila(), prob.getEstadoFinal().getColumna())) + "," + Math.abs((int) nodoarbol.getF()) + "]");
+                    } else {
+                        pw.println("[" + nodoarbol.getID() + "][" + (int) nodoarbol.getCoste() + "," + nodoarbol.getEstado().getID() + "," + nodoarbol.getPadre().getID() + "," + nodoarbol.getAccion().getMov() + "," + nodoarbol.getP() + "," + Math.abs(nodoarbol.getEstado().getHeuristica(prob.getEstadoFinal().getFila(), prob.getEstadoFinal().getColumna())) + "," + Math.abs((int) nodoarbol.getF()) + "]");
+                    }
+                    i++; 
+                }
             }
+            
         } catch (IOException ex) {
             System.out.println(ex);
         }
