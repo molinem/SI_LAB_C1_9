@@ -17,6 +17,7 @@ public class NodoArbol implements Comparable<NodoArbol> {
     private Accion accion;
     private int p;
     private double f;
+    private int heuristica;
     
     //Atributos para probar en la frontera
     private static int contadorId = 0;

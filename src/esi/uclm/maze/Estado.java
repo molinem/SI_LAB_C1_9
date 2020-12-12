@@ -132,6 +132,13 @@ public class Estado implements Cloneable {
         return obj;
     }
     
+    /*****************************************************************************
+    * 
+    * Method Name: getHeuristica
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene la heurística
+    * 
+    *****************************************************************************/     
     public int getHeuristica (int f, int c) {
         int dif_fila = fila - f;
         int dif_columna = columna - c;
@@ -153,6 +160,13 @@ public class Estado implements Cloneable {
         return ((fila == f) && (columna == c));
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: getID
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: obtiene el id compuesto por la fila y columna
+    * 
+    *****************************************************************************/ 
     public String getID() {
         return "(" + this.getFila() + ", " + this.getColumna() + ")";
     }

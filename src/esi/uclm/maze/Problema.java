@@ -44,7 +44,7 @@ public class Problema {
 
     /*****************************************************************************
     * 
-    * Constructor Name: esObjetivo
+    * Method Name: esObjetivo
     * Author/s Name: Antonio, Luis y Teresa
     * Description of constructor: devuelve true si es objetivo y false en 
     * caso contrario 
@@ -56,7 +56,7 @@ public class Problema {
     
     /*****************************************************************************
     * 
-    * Constructor Name: getEstadoInicial
+    * Method Name: getEstadoInicial
     * Author/s Name: Antonio, Luis y Teresa
     * Description of constructor: obtiene el estado inicial
     * 
@@ -67,7 +67,7 @@ public class Problema {
 
     /*****************************************************************************
     * 
-    * Constructor Name: getEstadoInicial
+    * Method Name: getEstadoInicial
     * Author/s Name: Antonio, Luis y Teresa
     * Description of constructor: obtiene el estado inicial
     * 
@@ -78,7 +78,7 @@ public class Problema {
 
     /*****************************************************************************
     * 
-    * Constructor Name: getEstadoFinal
+    * Method Name: getEstadoFinal
     * Author/s Name: Antonio, Luis y Teresa
     * Description of constructor: obtiene el estado final
     * 
@@ -89,7 +89,7 @@ public class Problema {
 
     /*****************************************************************************
     * 
-    * Constructor Name: setEstadoFinal
+    * Method Name: setEstadoFinal
     * Author/s Name: Antonio, Luis y Teresa
     * Description of constructor: establece el estado final
     * 
@@ -98,10 +98,24 @@ public class Problema {
         this.estadoFinal = estadoFinal;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: getEspacioDeEstados
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of constructor: obtiene el espacio de estados
+    * 
+    *****************************************************************************/    
     public EspacioDeEstados getEspacioDeEstados() {
         return espacioDeEstados;
     }
 
+    /*****************************************************************************
+    * 
+    * Method Name: setEspacioDeEstados
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of constructor: establece el espacio de estados
+    * 
+    *****************************************************************************/  
     public void setEspacioDeEstados(EspacioDeEstados espacioDeEstados) {
         this.espacioDeEstados = espacioDeEstados;
     }

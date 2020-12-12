@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package esi.uclm.main;
 
 import esi.uclm.maze.Frontera;
@@ -25,21 +20,35 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- *
- * @author pikac
- */
+/*****************************************************************************
+ * 
+ * Class Name: Inicio
+ * Author/s Name: Antonio, Luis y Teresa
+ * Description of the class: En esta clase se realizan las diferentes pruebas 
+ * para comprobar el correcto funcionamiento.
+ * 
+ *****************************************************************************/
 public class Inicio {
-
+    
+    //Atributos
     private final static int PROF_MAX = 1000000;
     private static final String RUTA_FUENTES = "./ejemplos/";
     private static final String RUTA_SOLUCION = "./soluciones/";
     private static final String [] FICHEROS = {"problema_5x5.json", "problema_10x10.json", "problema_25x25.json", "problema_25x50.json", "problema_50x25.json", "problema_50x50.json", "problema_100x100.json"};
     private static final String [] FICHEROS_SOL = {"sol_5x5_", "sol_10x10_", "sol_25x25_", "sol_25x50_", "sol_50x25_", "sol_50x50_", "sol_100x100_"};
     
-    /**
-     * @param args the command line arguments
-     */
+    /*****************************************************************************
+    * 
+    * Method Name: main
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: se encarga de crear las búsquedas con los problemas 
+    * proporcionados usando las distintas estrategias de búsqueda(BREADTH, DEPTH,
+    * UNIFORM, GREEDY, A)
+    * 
+    * Además se comprueba de forma automática si el problema en esa estrategia da 
+    * la misma solución o no.
+    * 
+    *****************************************************************************/ 
     public static void main(String[] args) {
         String [] estrategias = {"BREADTH", "DEPTH", "UNIFORM", "GREEDY", "A"};
         
@@ -60,6 +69,15 @@ public class Inicio {
         }
     }
     
+    /*****************************************************************************
+    * 
+    * Method Name: búsqueda
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: proporcionando por parámetros el problema, la estrategia,
+    * y la profundidad máxima de realizar la búsqueda. Devuelve si el problema tiene 
+    * solución o no.
+    * 
+    *****************************************************************************/ 
     public static boolean busqueda(Problema prob, String estrategia, int Prof_Max) {
         NodoArbol.setContadorId(0);
         
@@ -121,6 +139,15 @@ public class Inicio {
         return solucion;
     }
     
+    /*****************************************************************************
+    * 
+    * Method Name: CreaListaNodosArbol
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: crea una lista de nodos arbol a partir de los parámetros
+    * proporcionados(problema, lista de sucesores, n_ actual, profundidad máxima y la 
+    * estrategia a seguir.
+    * 
+    *****************************************************************************/ 
     public static List<NodoArbol> CreaListaNodosArbol(Problema prob, List<Sucesor> LS, NodoArbol n_actual, int Prof_Max, String estrategia) {
         List<NodoArbol> LN = new ArrayList();
         if (n_actual.getP() < Prof_Max) { // Si aún podemos seguir iterando por no alcanzar la profundidad máxima
@@ -155,6 +182,14 @@ public class Inicio {
         return LN;
     }
     
+    /*****************************************************************************
+    * 
+    * Method Name: generaFichero
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: genera un fichero proporcionando al método el problema,
+    * el camino y la estrategia a seguir.
+    * 
+    *****************************************************************************/ 
     public static void generarFichero(Problema prob, Deque<NodoArbol> camino, String estrategia) {
         DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
         df.setMaximumFractionDigits(340); 
@@ -187,6 +222,14 @@ public class Inicio {
         }
     }
     
+    /*****************************************************************************
+    * 
+    * Method Name: comprobarFicherosIguales
+    * Author/s Name: Antonio, Luis y Teresa
+    * Description of method: comprueba si dos ficheros proporcionados por parámetros
+    * son iguales, si lo son devuelve true, en caso contrario false.
+    * 
+    *****************************************************************************/     
     public static boolean comprobarFicherosIguales (String ruta, String estrategia) {
         boolean iguales = true;
         
