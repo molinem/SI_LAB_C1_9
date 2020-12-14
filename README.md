@@ -16,7 +16,7 @@ A continuación se muestra un laberinto de 10 x 10 generado por el software.
 
 ![Imagen del software2](https://github.com/molinem/SI_LAB_C1_9/blob/main/Software_2.png)
 
-## Comprobación del correcto funcionamiento
+### Comprobación del correcto funcionamiento
 * Frontera
   * Procederemos a ejecutar **TestFrontera.java**
 * Búsqueda
